@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Skill-Connect - Platform kolaborasi proyek dan keahlian untuk mahasiswa">
+    <title>Skill-Connect - Platform Kolaborasi Mahasiswa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2b6df6;
+            --primary-dark: #1a56d9;
+            --secondary: #14a800;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        /* Improved CSS structure with logical grouping */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark);
+            background-color: #f9fbfd;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .skill-badge {
+            background-color: #e3f2fd;
+            color: var(--primary);
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin: 0.25rem;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+        
+        .auth-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Mobile-first media queries */
+        @media (min-width: 768px) {
+            .auth-container {
+                margin: 5rem auto;
+            }
+            
+            .hero-section {
+                padding: 5rem 0 !important;
+            }
+        }
+
+        /* Accessibility improvements */
+        .btn:focus, .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(43, 109, 246, 0.25);
+        }
+
+        /* Performance optimizations */
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#home-page">
+                <i class="fas fa-users me-2"></i>Skill-Connect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#beranda">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimoni">Testimoni</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#profile-page">Profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#hubungi">Hubungi</a></li>
+                    <li class="nav-item ms-2"><a class="btn btn-outline-primary" href="#login-page">Masuk</a></li>
+                    <li class="nav-item ms-2"><a class="btn btn-primary" href="#register-page">Daftar</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home/Hero Section -->
+        <header id="beranda" class="hero-section bg-gradient bg-primary bg-opacity-10 py-5">
+            <div class="container">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-6">
+                        <h1 class="display-5 fw-bold mb-3">Temukan Kolaborator untuk Projek Kampus Anda</h1>
+                        <p class="lead mb-4">Skill-Connect mempertemukan ide dengan eksekutor, dan keahlian dengan kesempatan di dalam ekosistem kampus.</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#layanan" class="btn btn-primary btn-lg px-4">Lihat Projek</a>
+                            <a href="#register-page" class="btn btn-outline-primary btn-lg px-4">Buat Profil</a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 position-relative">
+                        <div class="card border-0 shadow-lg mb-4">
+                            <!-- Project card content -->
+                        </div>
+                        <div class="card border-0 shadow-lg position-absolute top-50 end-0 translate-middle-y d-none d-lg-block">
+                            <!-- Testimonial card content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Projects Section -->
+        <section id="layanan" class="py-5" aria-labelledby="projects-heading">
+            <div class="container">
+                <h2 id="projects-heading" class="section-title">Proyek Tersedia</h2>
+                
+                <!-- Project filters -->
+                <div class="row g-3 mb-4">
+                    <!-- Filter content -->
+                </div>
+                
+                <!-- Project cards -->
+                <div class="row g-4" role="list">
+                    <!-- Project 1 -->
+                    <div class="col-lg-4 col-md-6" role="listitem">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <!-- Project card content -->
+                        </div>
+                    </div>
+                    <!-- Additional projects -->
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-outline-primary">Lihat Semua Projek</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="tentang" class="py-5 bg-light" aria-labelledby="about-heading">
+            <div class="container">
+                <h2 id="about-heading" class="section-title">Tentang Skill-Connect</h2>
+                <!-- About content -->
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimoni" class="py-5" aria-labelledby="testimonials-heading">
+            <div class="container">
+                <h2 id="testimonials-heading" class="section-title">Apa Kata Pengguna</h2>
+                <!-- Testimonials content -->
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="hubungi" class="py-5" aria-labelledby="contact-heading">
+            <div class="container">
+                <h2 id="contact-heading" class="section-title">Hubungi Kami</h2>
+                <!-- Contact content -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-5 mt-auto">
+        <div class="container">
+            <!-- Footer content -->
+        </div>
+    </footer>
+
+    <!-- Auth Pages (Login/Register/Profile) -->
+    <!-- Improved with semantic sectioning -->
+    <section id="login-page" class="d-none" aria-labelledby="login-heading">
+        <!-- Login content -->
+    </section>
+
+    <section id="register-page" class="d-none" aria-labelledby="register-heading">
+        <!-- Register content -->
+    </section>
+
+    <section id="profile-page" class="d-none" aria-labelledby="profile-heading">
+        <!-- Profile content -->
+    </section>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Enhanced page navigation function
+        function showPage(pageId, scrollTo = null) {
+            // Hide all pages
+            document.querySelectorAll('[id$="-page"]').forEach(page => {
+                page.classList.add('d-none');
+            });
+            
+            // Show requested page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.remove('d-none');
+                
+                // Update URL hash
+                window.location.hash = pageId;
+                
+                // Scroll to element if needed
+                if (scrollTo) {
+                    setTimeout(() => {
+                        const element = document.getElementById(scrollTo);
+                        element?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
+            }
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show page based on URL hash
+            const hash = window.location.hash.substring(1) || 'home-page';
+            showPage(hash);
+        });
+
+        // Form validation with better error handling
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                
+                // Validate required fields
+                this.querySelectorAll('[required]').forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        showError(input, 'Field ini wajib diisi');
+                    }
+                });
+                
+                // Password confirmation validation
+                const password = this.querySelector('#register-password');
+                const confirmPassword = this.querySelector('#confirm-password');
+                
+                if (password && confirmPassword && password.value !== confirmPassword.value) {
+                    isValid = false;
+                    showError(confirmPassword, 'Konfirmasi password tidak cocok');
+                }
+                
+                if (isValid) {
+                    // Form submission logic
+                    console.log('Form submitted:', this.id);
+                    
+                    // PHP Security Note: In backend implementation, remember to:
+                    // 1. Sanitize inputs: filter_var($input, FILTER_SANITIZE_STRING)
+                    // 2. Validate data: filter_var($email, FILTER_VALIDATE_EMAIL)
+                    // 3. Use prepared statements for database queries
+                }
+            });
+        });
+        
+        function showError(input, message) {
+            // Error display implementation
+        }
+    </script>
+</body>
+</html>

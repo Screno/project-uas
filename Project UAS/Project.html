@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill-Connect - Platform Kolaborasi Mahasiswa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Utama (akan dipindahkan ke file terpisah) */
+        :root {
+            --primary: #2b6df6;
+            --primary-dark: #1a56d9;
+            --secondary: #14a800;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark);
+            background-color: #f9fbfd;
+        }
+        
+        .auth-container {
+            max-width: 500px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary) !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        
+        .btn-success {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(43, 109, 246, 0.1), rgba(20, 168, 0, 0.1));
+            padding: 5rem 0;
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-card .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .skill-badge {
+            background-color: #e3f2fd;
+            color: var(--primary);
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin: 5px;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+        
+        .rating {
+            color: #ffc107;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 0;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: -60px;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border: 4px solid white;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .profile-section {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .project-card {
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            color: white;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(43, 109, 246, 0.25);
+        }
+        
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-logo i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .profile-form .form-label {
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 3rem 0;
+            }
+            
+            .section-title::after {
+                width: 60px;
+            }
+            
+            .auth-container {
+                margin: 2rem auto;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Halaman Utama (Default) -->
+    <div id="home-page">
+        <!-- Navigasi -->
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#" onclick="showPage('home-page')">
+                    <i class="fas fa-users me-2"></i>Skill-Connect
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" onclick="showPage('home-page')">Beranda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showPage('home-page', 'layanan')">Layanan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showPage('home-page', 'tentang')">Tentang Kami</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showPage('home-page', 'testimoni')">Testimoni</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showPage('profile-page')">Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showPage('home-page', 'hubungi')">Hubungi</a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="btn btn-outline-primary" href="#" onclick="showPage('login-page')">Masuk</a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="btn btn-primary" href="#" onclick="showPage('register-page')">Daftar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Beranda/Hero Section -->
+        <section id="beranda" class="hero-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <h1 class="display-4 fw-bold mb-4">Temukan Kolaborator untuk Projek Kampus Anda</h1>
+                        <p class="lead mb-4">Skill-Connect mempertemukan ide dengan eksekutor, dan keahlian dengan kesempatan di dalam ekosistem kampus.</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#" class="btn btn-primary btn-lg px-4" onclick="showPage('home-page', 'layanan')">Lihat Projek</a>
+                            <a href="#" class="btn btn-outline-primary btn-lg px-4" onclick="showPage('register-page')">Buat Profil</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="position-relative">
+                            <div class="card border-0 shadow-lg">
+                                <div class="card-body p-4">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="rounded-circle me-3" width="50">
+                                        <div>
+                                            <h6 class="mb-0">Budi Santoso</h6>
+                                            <small class="text-muted">Mahasiswa Informatika</small>
+                                        </div>
+                                        <span class="badge bg-success ms-auto">Mencari Anggota</span>
+                                    </div>
+                                    <h5>Sistem Prediksi Harga Saham Sederhana</h5>
+                                    <p class="text-muted">Proyek tugas akhir yang memerlukan data analyst dan front-end developer.</p>
+                                    <div class="mb-3">
+                                        <span class="skill-badge">Python</span>
+                                        <span class="skill-badge">Machine Learning</span>
+                                        <span class="skill-badge">React</span>
+                                        <span class="skill-badge">Data Visualization</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="me-3"><i class="fas fa-user-friends me-1"></i> 2 Anggota</span>
+                                            <span><i class="fas fa-clock me-1"></i> Deadline: 30 Hari</span>
+                                        </div>
+                                        <a href="#" class="btn btn-sm btn-outline-primary">Lihat Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card border-0 shadow-lg position-absolute top-50 end-0 translate-middle-y" style="width: 80%; z-index: -1; opacity: 0.8;">
+                                <div class="card-body p-3">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="rounded-circle me-2" width="35">
+                                        <div>
+                                            <h6 class="mb-0">Ana Wijaya</h6>
+                                            <small class="text-muted">Mahasiswa Data Science</small>
+                                        </div>
+                                    </div>
+                                    <p class="mb-0 mt-2">"Skill-Connect membantuku menemukan proyek untuk mengembangkan portofolio!"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Layanan -->
+        <section id="layanan" class="py-5">
+            <div class="container">
+                <h2 class="section-title">Proyek Tersedia</h2>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-lg" placeholder="Cari proyek...">
+                            <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex flex-wrap gap-2">
+                            <select class="form-select">
+                                <option selected>Semua Kategori Lomba</option>
+                                <option>Hackathon</option>
+                                <option>Business Case</option>
+                                <option>Data Science</option>
+                                <option>UI/UX Design</option>
+                            </select>
+                            <select class="form-select">
+                                <option selected>Semua Jurusan</option>
+                                <option>Informatika</option>
+                                <option>Data Science</option>
+                                <option>Bisnis Digital</option>
+                                <option>Desain Komunikasi Visual</option>
+                            </select>
+                            <select class="form-select">
+                                <option selected>Deadline</option>
+                                <option>Kurang dari 1 Minggu</option>
+                                <option>Kurang dari 1 Bulan</option>
+                                <option>Lebih dari 1 Bulan</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <!-- Project 1 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card service-card h-100">
+                            <div class="badge bg-success">Mencari Anggota</div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User" class="rounded-circle me-3" width="45">
+                                    <div>
+                                        <h6 class="mb-0">Rudi Hermawan</h6>
+                                        <small class="text-muted">Mahasiswa Bisnis Digital</small>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Aplikasi Fintech untuk UMKM</h5>
+                                <p class="card-text">Membutuhkan pengembang full-stack dan UI/UX designer untuk membuat aplikasi keuangan sederhana untuk UMKM.</p>
+                                <div class="mb-3">
+                                    <span class="skill-badge">JavaScript</span>
+                                    <span class="skill-badge">UI/UX Design</span>
+                                    <span class="skill-badge">Fintech</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                            <span class="text-muted ms-1">4.5</span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span><i class="fas fa-clock me-1"></i> 14 Hari</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a href="#" class="btn btn-primary w-100">Ajukan Diri</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card service-card h-100">
+                            <div class="badge bg-info">Berjalan</div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="User" class="rounded-circle me-3" width="45">
+                                    <div>
+                                        <h6 class="mb-0">Siti Rahayu</h6>
+                                        <small class="text-muted">Mahasiswa DKV</small>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Redesign Website Kampus</h5>
+                                <p class="card-text">Proyek kolaborasi untuk merancang ulang website kampus dengan tampilan modern dan user friendly.</p>
+                                <div class="mb-3">
+                                    <span class="skill-badge">Figma</span>
+                                    <span class="skill-badge">Web Design</span>
+                                    <span class="skill-badge">User Research</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <span class="text-muted ms-1">4.0</span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span><i class="fas fa-clock me-1"></i> 21 Hari</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a href="#" class="btn btn-outline-secondary w-100" disabled>Projek Berjalan</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card service-card h-100">
+                            <div class="badge bg-success">Mencari Anggota</div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="User" class="rounded-circle me-3" width="45">
+                                    <div>
+                                        <h6 class="mb-0">Ahmad Fauzi</h6>
+                                        <small class="text-muted">Mahasiswa Data Science</small>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Analisis Sentimen Media Sosial</h5>
+                                <p class="card-text">Membutuhkan data scientist dan NLP specialist untuk proyek analisis sentimen di platform media sosial.</p>
+                                <div class="mb-3">
+                                    <span class="skill-badge">Python</span>
+                                    <span class="skill-badge">NLP</span>
+                                    <span class="skill-badge">Machine Learning</span>
+                                    <span class="skill-badge">Data Analysis</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <span class="text-muted ms-1">5.0</span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span><i class="fas fa-clock me-1"></i> 30 Hari</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a href="#" class="btn btn-primary w-100">Ajukan Diri</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-outline-primary">Lihat Semua Projek</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tentang Kami -->
+        <section id="tentang" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="section-title">Tentang Skill-Connect</h2>
+                
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="card border-0 shadow">
+                            <div class="card-body p-4">
+                                <h3 class="mb-4">Mengapa Kami Membuat Skill-Connect?</h3>
+                                <p class="lead">Skill-Connect lahir dari pengamatan di lingkungan kampus: banyak ide brilian dan talenta hebat, namun keduanya sering tidak bertemu.</p>
+                                
+                                <div class="d-flex mt-4">
+                                    <div class="me-4">
+                                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                            <i class="fas fa-lightbulb fa-2x"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h5>Untuk Mahasiswa Beride</h5>
+                                        <p>"Saya punya ide brillan untuk aplikasi, tapi tidak bisa desain UI/UX."</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex mt-4">
+                                    <div class="me-4">
+                                        <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                            <i class="fas fa-code fa-2x"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h5>Untuk Mahasiswa Berkeahlian</h5>
+                                        <p>"Saya jago membuat API dengan Python, tapi tidak punya ide proyek untuk portofolio."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="bg-white p-4 p-lg-5 rounded shadow">
+                            <h3 class="mb-4">Manfaat Platform</h3>
+                            
+                            <div class="accordion" id="benefitsAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#benefit1">
+                                            <i class="fas fa-user-graduate me-3 text-primary"></i> Bagi Mahasiswa
+                                        </button>
+                                    </h2>
+                                    <div id="benefit1" class="accordion-collapse collapse show" data-bs-parent="#benefitsAccordion">
+                                        <div class="accordion-body">
+                                            Meningkatkan kualitas proyek, membangun portofolio yang relevan dengan industri, dan memperluas jaringan profesional sebelum lulus.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#benefit2">
+                                            <i class="fas fa-university me-3 text-primary"></i> Bagi Universitas
+                                        </button>
+                                    </h2>
+                                    <div id="benefit2" class="accordion-collapse collapse" data-bs-parent="#benefitsAccordion">
+                                        <div class="accordion-body">
+                                            Mendorong budaya kolaborasi dan inovasi. Pihak fakultas bisa mendapatkan data analitik mengenai tren keahlian yang dimiliki atau diminati mahasiswa.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#benefit3">
+                                            <i class="fas fa-building me-3 text-primary"></i> Bagi Industri
+                                        </button>
+                                    </h2>
+                                    <div id="benefit3" class="accordion-collapse collapse" data-bs-parent="#benefitsAccordion">
+                                        <div class="accordion-body">
+                                            Platform ini menciptakan peta talenta yang terverifikasi. Perusahaan bisa melihat mahasiswa mana yang paling aktif, proyek apa saja yang telah mereka selesaikan, dan rekomendasi dari kolaborator.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimoni -->
+        <section id="testimoni" class="py-5">
+            <div class="container">
+                <h2 class="section-title">Apa Kata Pengguna</h2>
+                
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="testimonial-card p-4 h-100">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="rounded-circle me-3" width="60">
+                                <div>
+                                    <h5 class="mb-0">Diana Putri</h5>
+                                    <small class="text-muted">Mahasiswa Informatika</small>
+                                </div>
+                            </div>
+                            <p class="mb-0">"Berkat Skill-Connect, saya menemukan tim yang tepat untuk proyek tugas akhir saya. Kolaborasi lintas jurusan menjadi lebih mudah!"</p>
+                            <div class="rating mt-3">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 mb-4">
+                        <div class="testimonial-card p-4 h-100">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" class="rounded-circle me-3" width="60">
+                                <div>
+                                    <h5 class="mb-0">Rizky Pratama</h5>
+                                    <small class="text-muted">Mahasiswa Data Science</small>
+                                </div>
+                            </div>
+                            <p class="mb-0">"Sebagai mahasiswa yang baru belajar machine learning, platform ini membantu saya menemukan proyek nyata untuk mengaplikasikan ilmu."</p>
+                            <div class="rating mt-3">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 mb-4">
+                        <div class="testimonial-card p-4 h-100">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User" class="rounded-circle me-3" width="60">
+                                <div>
+                                    <h5 class="mb-0">Sinta Dewi</h5>
+                                    <small class="text-muted">Mahasiswa Desain</small>
+                                </div>
+                            </div>
+                            <p class="mb-0">"Saya sering kesulitan mencari proyek untuk portofolio. Dengan Skill-Connect, saya bisa menemukan banyak kesempatan kolaborasi."</p>
+                            <div class="rating mt-3">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hubungi Kami -->
+        <section id="hubungi" class="py-5">
+            <div class="container">
+                <h2 class="section-title">Hubungi Kami</h2>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="card border-0 shadow h-100">
+                            <div class="card-body p-4 p-lg-5">
+                                <h3 class="mb-4">Kirim Pesan</h3>
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="nama" class="form-label">Nama Lengkap</label>
+                                        <input type="text" class="form-control" id="nama" placeholder="Masukkan nama Anda">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Masukkan email Anda">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="subjek" class="form-label">Subjek</label>
+                                        <input type="text" class="form-control" id="subjek" placeholder="Subjek pesan">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="pesan" class="form-label">Pesan</label>
+                                        <textarea class="form-control" id="pesan" rows="5" placeholder="Tulis pesan Anda"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="card border-0 shadow h-100">
+                            <div class="card-body p-4 p-lg-5">
+                                <h3 class="mb-4">Informasi Kontak</h3>
+                                
+                                <div class="d-flex mb-4">
+                                    <div class="me-3">
+                                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h5>Lokasi</h5>
+                                        <p class="mb-0">Gedung Teknik Lt. 5, Universitas Teknologi Indonesia<br>Jl. Pendidikan No. 1, Jakarta</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex mb-4">
+                                    <div class="me-3">
+                                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h5>Telepon</h5>
+                                        <p class="mb-0">(021) 1234-5678<br>Senin-Jumat, 08:00-17:00</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h5>Email</h5>
+                                        <p class="mb-0">info@skillconnect.ac.id<br>support@skillconnect.ac.id</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-5">
+                                    <h5 class="mb-3">Ikuti Kami</h5>
+                                    <div>
+                                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 mb-4 mb-lg-0">
+                        <h3 class="mb-4"><i class="fas fa-users me-2"></i>Skill-Connect</h3>
+                        <p>Platform kolaborasi untuk mahasiswa, mempertemukan ide dengan eksekutor, dan keahlian dengan kesempatan di dalam ekosistem kampus.</p>
+                        <div class="mt-4">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                        <h5 class="mb-4">Tautan</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" onclick="showPage('home-page')">Beranda</a></li>
+                            <li class="mb-2"><a href="#" onclick="showPage('home-page', 'layanan')">Layanan</a></li>
+                            <li class="mb-2"><a href="#" onclick="showPage('home-page', 'tentang')">Tentang Kami</a></li>
+                            <li class="mb-2"><a href="#" onclick="showPage('profile-page')">Profil</a></li>
+                            <li class="mb-2"><a href="#" onclick="showPage('home-page', 'hubungi')">Hubungi</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+                        <h5 class="mb-4">Sumber Daya</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#">Blog</a></li>
+                            <li class="mb-2"><a href="#">Panduan Pengguna</a></li>
+                            <li class="mb-2"><a href="#">FAQ</a></li>
+                            <li class="mb-2"><a href="#">Kebijakan Privasi</a></li>
+                            <li class="mb-2"><a href="#">Syarat & Ketentuan</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-4">
+                        <h5 class="mb-4">Berlangganan</h5>
+                        <p>Dapatkan pembaruan tentang proyek dan kesempatan terbaru</p>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Email Anda">
+                            <button class="btn btn-primary" type="button"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-top mt-5 pt-4 text-center">
+                    <p class="mb-0">&copy; 2023 Skill-Connect. Hak Cipta Dilindungi.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Halaman Login -->
+    <div id="login-page" class="d-none">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <i class="fas fa-users"></i>
+                <h2>Masuk ke Skill-Connect</h2>
+                <p class="text-muted">Silakan masuk untuk melanjutkan</p>
+            </div>
+            
+            <form>
+                <div class="mb-3">
+                    <label for="login-email" class="form-label">Email Universitas</label>
+                    <input type="email" class="form-control" id="login-email" placeholder="nama@student.university.ac.id" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="login-password" class="form-label">Kata Sandi</label>
+                    <input type="password" class="form-control" id="login-password" placeholder="Masukkan kata sandi" required>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="remember-me">
+                        <label class="form-check-label" for="remember-me">Ingat saya</label>
+                    </div>
+                    <a href="#" class="text-decoration-none">Lupa kata sandi?</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 mb-3">Masuk</button>
+                
+                <div class="text-center">
+                    <p class="mb-0">Belum punya akun? <a href="#" class="text-decoration-none" onclick="showPage('register-page')">Daftar sekarang</a></p>
+                </div>
+            </form>
+            
+            <div class="auth-footer">
+                <p class="text-muted">Atau masuk dengan</p>
+                <div>
+                    <button class="btn btn-outline-dark me-2"><i class="fab fa-google me-2"></i>Google</button>
+                    <button class="btn btn-outline-dark"><i class="fab fa-microsoft me-2"></i>Microsoft</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Halaman Register -->
+    <div id="register-page" class="d-none">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <i class="fas fa-users"></i>
+                <h2>Daftar Akun Skill-Connect</h2>
+                <p class="text-muted">Bergabunglah dengan komunitas kolaborator kampus</p>
+            </div>
+            
+            <form>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="first-name" class="form-label">Nama Depan</label>
+                        <input type="text" class="form-control" id="first-name" placeholder="Nama depan" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="last-name" class="form-label">Nama Belakang</label>
+                        <input type="text" class="form-control" id="last-name" placeholder="Nama belakang" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="register-email" class="form-label">Email Universitas</label>
+                    <input type="email" class="form-control" id="register-email" placeholder="nama@student.university.ac.id" required>
+                    <div class="form-text">Gunakan email universitas Anda</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="register-password" class="form-label">Kata Sandi</label>
+                    <input type="password" class="form-control" id="register-password" placeholder="Buat kata sandi" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="confirm-password" class="form-label">Konfirmasi Kata Sandi</label>
+                    <input type="password" class="form-control" id="confirm-password" placeholder="Konfirmasi kata sandi" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Saya seorang</label>
+                    <div class="d-flex gap-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="user-type" id="mahasiswa" checked>
+                            <label class="form-check-label" for="mahasiswa">Mahasiswa</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="user-type" id="dosen">
+                            <label class="form-check-label" for="dosen">Dosen</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="terms" required>
+                    <label class="form-check-label" for="terms">Saya menyetujui <a href="#" class="text-decoration-none">Syarat & Ketentuan</a> dan <a href="#" class="text-decoration-none">Kebijakan Privasi</a></label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 mb-3">Daftar Sekarang</button>
+                
+                <div class="text-center">
+                    <p class="mb-0">Sudah punya akun? <a href="#" class="text-decoration-none" onclick="showPage('login-page')">Masuk sekarang</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Halaman Profile -->
+    <div id="profile-page" class="d-none">
+        <!-- Navigasi -->
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#" onclick="showPage('home-page')">
+                    <i class="fas fa-users me-2"></i>Skill-Connect
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showPage('home-page')">Beranda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showPage('home-page', 'layanan')">Layanan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" onclick="showPage('profile-page')">Profil</a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="btn btn-outline-primary" href="#" onclick="showPage('login-page')">Keluar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container py-5">
+            <h2 class="section-title">Profil Pengguna</h2>
+            
+            <ul class="nav nav-tabs justify-content-center mb-4" id="profileTab">
+                <li class="nav-item">
+                    <a class="nav-link active" id="input-biodata-tab" data-bs-toggle="tab" href="#input-biodata">Input Biodata</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pencari-kelompok-tab" data-bs-toggle="tab" href="#pencari-kelompok">Pencari Kelompok</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pencari-anggota-tab" data-bs-toggle="tab" href="#pencari-anggota">Pencari Anggota</a>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="profileTabContent">
+                <!-- Input Biodata -->
+                <div class="tab-pane fade show active" id="input-biodata">
+                    <div class="card border-0 shadow">
+                        <div class="card-body p-4 p-lg-5">
+                            <h3 class="mb-4">Lengkapi Profil Anda</h3>
+                            <p class="text-muted mb-4">Lengkapi informasi profil Anda untuk mendapatkan pengalaman terbaik di Skill-Connect</p>
+                            
+                            <form class="profile-form">
+                                <div class="text-center mb-4">
+                                    <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Profile" class="profile-avatar mb-3">
+                                    <div>
+                                        <button type="button" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-camera me-1"></i>Ubah Foto
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nama Depan</label>
+                                        <input type="text" class="form-control" value="Budi">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nama Belakang</label>
+                                        <input type="text" class="form-control" value="Santoso">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Email Universitas</label>
+                                    <input type="email" class="form-control" value="budi.santoso@student.uti.ac.id" disabled>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Jurusan</label>
+                                        <select class="form-select">
+                                            <option selected>Informatika</option>
+                                            <option>Data Science</option>
+                                            <option>Bisnis Digital</option>
+                                            <option>Desain Komunikasi Visual</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Angkatan</label>
+                                        <select class="form-select">
+                                            <option>2021</option>
+                                            <option>2020</option>
+                                            <option>2022</option>
+                                            <option selected>2023</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Bio</label>
+                                    <textarea class="form-control" rows="3" placeholder="Ceritakan sedikit tentang diri Anda">Mahasiswa Informatika semester 6 yang tertarik dengan pengembangan web dan data science. Saya memiliki beberapa ide proyek yang membutuhkan kolaborator dengan berbagai keahlian.</textarea>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Keahlian</label>
+                                    <div class="d-flex flex-wrap mb-2">
+                                        <span class="skill-badge d-flex align-items-center">
+                                            Python <button type="button" class="btn-close ms-2" style="font-size: 0.6rem;"></button>
+                                        </span>
+                                        <span class="skill-badge d-flex align-items-center">
+                                            JavaScript <button type="button" class="btn-close ms-2" style="font-size: 0.6rem;"></button>
+                                        </span>
+                                        <span class="skill-badge d-flex align-items-center">
+                                            React <button type="button" class="btn-close ms-2" style="font-size: 0.6rem;"></button>
+                                        </span>
+                                        <span class="skill-badge d-flex align-items-center">
+                                            Data Analysis <button type="button" class="btn-close ms-2" style="font-size: 0.6rem;"></button>
+                                        </span>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Tambahkan keahlian">
+                                        <button class="btn btn-outline-secondary" type="button">Tambah</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Minat</label>
+                                    <div class="d-flex flex-wrap mb-2">
+                                        <span class="skill-badge d-flex align-items-center">
+                                            Fintech <button type="button" class="btn-close ms-2" style="font-size: 0.6rem;"></button>
+                                        </span>
+                                        <span class="skill-badge d-flex align-items-center">
+                                            Machine Learning <button type="button" class="btn-close ms-2" style="font-size: 0.6rem;"></button>
+                                        </span>
+                                        <span class="skill-badge d-flex align-items-center">
+                                            Startup <button type="button" class="btn-close ms-2" style="font-size: 0.6rem;"></button>
+                                        </span>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Tambahkan minat">
+                                        <button class="btn btn-outline-secondary" type="button">Tambah</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-secondary me-2">Batal</button>
+                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pencari Kelompok -->
+                <div class="tab-pane fade" id="pencari-kelompok">
+                    <div class="profile-header text-center">
+                        <div class="container">
+                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Profile" class="profile-avatar mb-3">
+                            <h2 class="text-white">Budi Santoso</h2>
+                            <p class="text-white mb-0">Mahasiswa Informatika | Angkatan 2021</p>
+                            <div class="mt-3">
+                                <span class="badge bg-light text-dark me-2">Pemilik Proyek</span>
+                                <span class="badge bg-light text-dark">Mencari Anggota</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="container mt-5 pt-4">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="profile-section">
+                                    <h4><i class="fas fa-user-tie me-2 text-primary"></i> Tentang Saya</h4>
+                                    <p>Mahasiswa Informatika semester 6 yang tertarik dengan pengembangan web dan data science. Saya memiliki beberapa ide proyek yang membutuhkan kolaborator dengan berbagai keahlian.</p>
+                                    
+                                    <h5 class="mt-4"><i class="fas fa-map-marker-alt me-2 text-primary"></i> Lokasi</h5>
+                                    <p>Universitas Teknologi Indonesia, Jakarta</p>
+                                    
+                                    <h5 class="mt-4"><i class="fas fa-envelope me-2 text-primary"></i> Kontak</h5>
+                                    <p>budi.santoso@student.uti.ac.id</p>
+                                </div>
+                                
+                                <div class="profile-section">
+                                    <h4><i class="fas fa-star me-2 text-primary"></i> Rating & Ulasan</h4>
+                                    <div class="text-center mb-3">
+                                        <div class="display-4 fw-bold">4.7</div>
+                                        <div class="rating fs-4">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <small class="text-muted">12 ulasan</small>
+                                    </div>
+                                    
+                                    <div class="border-top pt-3">
+                                        <div class="d-flex mb-3">
+                                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Reviewer" class="rounded-circle me-3" width="45">
+                                            <div>
+                                                <h6 class="mb-0">Ana Wijaya</h6>
+                                                <div class="rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <p class="mb-0 mt-1">Budi sangat komunikatif dan jelas dalam menjelaskan kebutuhan proyeknya. Kolaborasi yang menyenangkan!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-8">
+                                <div class="profile-section">
+                                    <h4><i class="fas fa-tools me-2 text-primary"></i> Keahlian</h4>
+                                    <div class="d-flex flex-wrap">
+                                        <span class="skill-badge">Python</span>
+                                        <span class="skill-badge">JavaScript</span>
+                                        <span class="skill-badge">React</span>
+                                        <span class="skill-badge">Data Analysis</span>
+                                        <span class="skill-badge">Project Management</span>
+                                    </div>
+                                    
+                                    <h4 class="mt-4"><i class="fas fa-heart me-2 text-primary"></i> Minat</h4>
+                                    <div class="d-flex flex-wrap">
+                                        <span class="skill-badge">Fintech</span>
+                                        <span class="skill-badge">Machine Learning</span>
+                                        <span class="skill-badge">Startup</span>
+                                        <span class="skill-badge">Web Development</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="profile-section">
+                                    <h4><i class="fas fa-project-diagram me-2 text-primary"></i> Proyek Saya</h4>
+                                    
+                                    <div class="card project-card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <h5 class="mb-1">Sistem Prediksi Harga Saham</h5>
+                                                    <p class="mb-1 text-muted">Proyek tugas akhir untuk memprediksi pergerakan harga saham menggunakan machine learning.</p>
+                                                    <div class="d-flex flex-wrap mt-2">
+                                                        <span class="skill-badge">Python</span>
+                                                        <span class="skill-badge">Machine Learning</span>
+                                                        <span class="skill-badge">Data Visualization</span>
+                                                    </div>
+                                                </div>
+                                                <span class="badge bg-success">Mencari Anggota</span>
+                                            </div>
+                                            <div class="mt-3 d-flex justify-content-between">
+                                                <div>
+                                                    <span class="me-3"><i class="fas fa-user-friends me-1"></i> 1/3 Anggota</span>
+                                                    <span><i class="fas fa-clock me-1"></i> Deadline: 30 Hari</span>
+                                                </div>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">Kelola Proyek</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card project-card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <h5 class="mb-1">Aplikasi Manajemen Tugas Kampus</h5>
+                                                    <p class="mb-1 text-muted">Aplikasi web untuk membantu mahasiswa mengatur tugas dan deadline.</p>
+                                                    <div class="d-flex flex-wrap mt-2">
+                                                        <span class="skill-badge">React</span>
+                                                        <span class="skill-badge">Node.js</span>
+                                                        <span class="skill-badge">MongoDB</span>
+                                                    </div>
+                                                </div>
+                                                <span class="badge bg-info">Selesai</span>
+                                            </div>
+                                            <div class="mt-3 d-flex justify-content-between">
+                                                <div>
+                                                    <span class="me-3"><i class="fas fa-user-friends me-1"></i> 4 Anggota</span>
+                                                    <span><i class="fas fa-check-circle me-1 text-success"></i> Selesai</span>
+                                                </div>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">Lihat Detail</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pencari Anggota -->
+                <div class="tab-pane fade" id="pencari-anggota">
+                    <div class="profile-header text-center">
+                        <div class="container">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="profile-avatar mb-3">
+                            <h2 class="text-white">Ana Wijaya</h2>
+                            <p class="text-white mb-0">Mahasiswa Data Science | Angkatan 2020</p>
+                            <div class="mt-3">
+                                <span class="badge bg-light text-dark me-2">Pencari Proyek</span>
+                                <span class="badge bg-light text-dark">Freelancer</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="container mt-5 pt-4">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="profile-section">
+                                    <h4><i class="fas fa-user-tie me-2 text-primary"></i> Tentang Saya</h4>
+                                    <p>Mahasiswa Data Science dengan pengalaman dalam analisis data dan machine learning. Saya mencari proyek yang menantang untuk mengembangkan portofolio dan keahlian saya.</p>
+                                    
+                                    <h5 class="mt-4"><i class="fas fa-map-marker-alt me-2 text-primary"></i> Lokasi</h5>
+                                    <p>Universitas Teknologi Indonesia, Jakarta</p>
+                                    
+                                    <h5 class="mt-4"><i class="fas fa-envelope me-2 text-primary"></i> Kontak</h5>
+                                    <p>ana.wijaya@student.uti.ac.id</p>
+                                </div>
+                                
+                                <div class="profile-section">
+                                    <h4><i class="fas fa-star me-2 text-primary"></i> Rating & Ulasan</h4>
+                                    <div class="text-center mb-3">
+                                        <div class="display-4 fw-bold">4.9</div>
+                                        <div class="rating fs-4">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <small class="text-muted">8 ulasan</small>
+                                    </div>
+                                    
+                                    <div class="border-top pt-3">
+                                        <div class="d-flex mb-3">
+                                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Reviewer" class="rounded-circle me-3" width="45">
+                                            <div>
+                                                <h6 class="mb-0">Budi Santoso</h6>
+                                                <div class="rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <p class="mb-0 mt-1">Ana memberikan kontribusi luar biasa dalam proyek prediksi saham kami. Analisis datanya sangat mendalam!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-8">
+                                <div class="profile-section">
+                                    <h4><i class="fas fa-tools me-2 text-primary"></i> Keahlian Utama</h4>
+                                    <div class="d-flex flex-wrap">
+                                        <span class="skill-badge">Python</span>
+                                        <span class="skill-badge">Data Analysis</span>
+                                        <span class="skill-badge">Machine Learning</span>
+                                        <span class="skill-badge">SQL</span>
+                                        <span class="skill-badge">Data Visualization</span>
+                                    </div>
+                                    
+                                    <h4 class="mt-4"><i class="fas fa-heart me-2 text-primary"></i> Minat</h4>
+                                    <div class="d-flex flex-wrap">
+                                        <span class="skill-badge">Fintech</span>
+                                        <span class="skill-badge">NLP</span>
+                                        <span class="skill-badge">Big Data</span>
+                                        <span class="skill-badge">Business Intelligence</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="profile-section">
+                                    <h4><i class="fas fa-briefcase me-2 text-primary"></i> Portofolio</h4>
+                                    
+                                    <div class="card project-card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="mb-1">Sistem Prediksi Harga Saham</h5>
+                                            <p class="mb-2 text-muted">Proyek kolaborasi dengan Budi Santoso untuk memprediksi pergerakan harga saham menggunakan machine learning.</p>
+                                            <div class="d-flex flex-wrap">
+                                                <span class="skill-badge">Python</span>
+                                                <span class="skill-badge">Scikit-learn</span>
+                                                <span class="skill-badge">Pandas</span>
+                                                <span class="skill-badge">Matplotlib</span>
+                                            </div>
+                                            <div class="mt-3">
+                                                <span class="badge bg-success">Selesai</span>
+                                                <span class="ms-2"><i class="fas fa-user-friends me-1"></i> Tim: 3 Orang</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card project-card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="mb-1">Analisis Sentimen Produk E-commerce</h5>
+                                            <p class="mb-2 text-muted">Analisis ulasan produk di e-commerce untuk memahami sentimen pelanggan menggunakan NLP.</p>
+                                            <div class="d-flex flex-wrap">
+                                                <span class="skill-badge">Python</span>
+                                                <span class="skill-badge">NLP</span>
+                                                <span class="skill-badge">TensorFlow</span>
+                                                <span class="skill-badge">Data Cleaning</span>
+                                            </div>
+                                            <div class="mt-3">
+                                                <span class="badge bg-success">Selesai</span>
+                                                <span class="ms-2"><i class="fas fa-user-friends me-1"></i> Proyek Individu</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="profile-section">
+                                    <h4><i class="fas fa-search me-2 text-primary"></i> Mencari Proyek</h4>
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>Saat ini terbuka untuk proyek di bidang data science, machine learning, atau analisis data.
+                                    </div>
+                                    <a href="#" class="btn btn-primary" onclick="showPage('home-page', 'layanan')">Lihat Proyek Tersedia</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fungsi untuk menampilkan halaman tertentu dan menyembunyikan yang lain
+        function showPage(pageId, scrollTo = null) {
+            // Sembunyikan semua halaman
+            document.getElementById('home-page').classList.add('d-none');
+            document.getElementById('login-page').classList.add('d-none');
+            document.getElementById('register-page').classList.add('d-none');
+            document.getElementById('profile-page').classList.add('d-none');
+            
+            // Tampilkan halaman yang diminta
+            document.getElementById(pageId).classList.remove('d-none');
+            
+            // Scroll ke elemen tertentu jika diperlukan
+            if (scrollTo) {
+                setTimeout(() => {
+                    const element = document.getElementById(scrollTo);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 100);
+            }
+        }
+        
+        // Inisialisasi halaman pertama
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home-page');
+            
+            // Aktifkan tab yang sesuai berdasarkan URL hash
+            if (window.location.hash) {
+                const hash = window.location.hash.substring(1);
+                const tabTrigger = document.querySelector(`[href="#${hash}"]`);
+                if (tabTrigger) {
+                    new bootstrap.Tab(tabTrigger).show();
+                }
+            }
+        });
+        
+        // Form validation
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validasi sederhana
+                let isValid = true;
+                const inputs = this.querySelectorAll('input[required], select[required], textarea[required]');
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('is-invalid');
+                    } else {
+                        input.classList.remove('is-invalid');
+                    }
+                });
+                
+                // Validasi khusus untuk konfirmasi password
+                const password = this.querySelector('#register-password');
+                const confirmPassword = this.querySelector('#confirm-password');
+                
+                if (password && confirmPassword && password.value !== confirmPassword.value) {
+                    isValid = false;
+                    confirmPassword.classList.add('is-invalid');
+                    document.querySelector('#confirm-password + .invalid-feedback')?.remove();
+                    confirmPassword.insertAdjacentHTML('afterend', '<div class="invalid-feedback">Konfirmasi password tidak cocok</div>');
+                }
+                
+                if (isValid) {
+                    // Simulasi pengiriman form
+                    alert('Form berhasil dikirim!');
+                    this.reset();
+                    
+                    // Redirect setelah submit form tertentu
+                    if (this.closest('#login-page') || this.closest('#register-page')) {
+                        showPage('profile-page', 'input-biodata');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
